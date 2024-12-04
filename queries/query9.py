@@ -1,4 +1,3 @@
-# queries/query9.py
 import pandas as pd
 from utils.db_connection import get_database
 import streamlit as st
@@ -13,10 +12,7 @@ def average_freight_value_by_state():
     """
     db = get_database()
     pipeline = [
-        # Unwind the order items to access individual freight values
         { "$unwind": "$order_items" },
-
-        # Lookup customer details from customers collection
         {
             "$lookup": {
                 "from": "customers",
@@ -25,11 +21,7 @@ def average_freight_value_by_state():
                 "as": "customer_info"
             }
         },
-
-        # Unwind the customer_info array
         { "$unwind": "$customer_info" },
-
-        # Group by customer state to calculate average freight value
         {
             "$group": {
                 "_id": "$customer_info.customer_state",
@@ -37,8 +29,6 @@ def average_freight_value_by_state():
                 "total_orders": { "$sum": 1 }
             }
         },
-
-        # Sort by average freight value descending
         { "$sort": { "average_freight_value": -1 } }
     ]
     result = list(db.orders.aggregate(pipeline))

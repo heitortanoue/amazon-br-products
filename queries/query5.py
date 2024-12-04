@@ -1,4 +1,3 @@
-# queries/query5.py
 import pandas as pd
 from utils.db_connection import get_database
 import streamlit as st
@@ -14,13 +13,8 @@ def top_rated_products():
     """
     db = get_database()
     pipeline = [
-        # Unwind the order items to access individual products
         { "$unwind": "$order_items" },
-
-        # Match orders that have a review score
         { "$match": { "review.review_score": { "$ne": None } } },
-
-        # Group by product_id to calculate average review score and count
         {
             "$group": {
                 "_id": "$order_items.product_id",
@@ -28,17 +22,9 @@ def top_rated_products():
                 "review_count": { "$sum": 1 }
             }
         },
-
-        # Filter products with at least 100 reviews
         { "$match": { "review_count": { "$gte": 100 } } },
-
-        # Sort by average review score descending
         { "$sort": { "average_review_score": -1, "review_count": -1 } },
-
-        # Limit to top 10
         { "$limit": 10 },
-
-        # Lookup product details from products collection
         {
             "$lookup": {
                 "from": "products",
@@ -47,11 +33,7 @@ def top_rated_products():
                 "as": "product_info"
             }
         },
-
-        # Unwind the product_info array
         { "$unwind": "$product_info" },
-
-        # Project the desired fields
         {
             "$project": {
                 "_id": 0,

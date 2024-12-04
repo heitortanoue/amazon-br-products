@@ -1,4 +1,3 @@
-# queries/query7.py
 import pandas as pd
 from utils.db_connection import get_database
 import streamlit as st
@@ -13,35 +12,26 @@ def sales_by_product_category():
     """
     db = get_database()
     pipeline = [
-        # Unwind the order items to access individual products
-        { "$unwind": "$order_items" },
-
-        # Lookup product details from products collection
+        {"$unwind": "$order_items"},
         {
             "$lookup": {
                 "from": "products",
                 "localField": "order_items.product_id",
                 "foreignField": "_id",
-                "as": "product_info"
+                "as": "product_info",
             }
         },
-
-        # Unwind the product_info array
-        { "$unwind": "$product_info" },
-
-        # Group by product category to calculate total sales and order count
+        {"$unwind": "$product_info"},
         {
             "$group": {
                 "_id": "$product_info.product_category_name_english",
-                "total_sales": { "$sum": "$order_items.price" },
-                "total_orders": { "$sum": 1 }
+                "total_sales": {"$sum": "$order_items.price"},
+                "total_orders": {"$sum": 1},
             }
         },
-
-        # Sort by total sales descending
-        { "$sort": { "total_sales": -1 } }
+        {"$sort": {"total_sales": -1}},
     ]
     result = list(db.orders.aggregate(pipeline))
     df = pd.DataFrame(result)
-    df.rename(columns={'_id': 'product_category'}, inplace=True)
+    df.rename(columns={"_id": "product_category"}, inplace=True)
     return df

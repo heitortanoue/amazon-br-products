@@ -5,7 +5,10 @@ from queries import query1, query2, query3, query4, query5, query6, query7, quer
 
 st.set_page_config(page_title="Olist E-commerce Data Analysis", layout="wide")
 
-st.title("Olist E-commerce data analysis")
+st.title("Olist E-commerce data analysis 🛒")
+st.markdown('''
+The dataset chosen is the **Olist E-commerce Public Dataset**, which contains information about orders made at Olist, a Brazilian e-commerce marketplace. Spanning from 2016 to 2018, the dataset comprises multiple CSV files that represent different entities in a relational model, such as customers, orders, products, sellers, and more. For better data comprehension for European viewers, **1 EUR is approximately 6 BRL**, as all financial figures in the dataset are denominated in Brazilian Reais (BRL). This exchange rate is essential for interpreting revenue, pricing, and freight costs accurately within the context of the analysis.
+''')
 
 query_options = {
     "Monthly sales trends": query1.monthly_sales_trends,

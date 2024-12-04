@@ -1,4 +1,3 @@
-# queries/query8.py
 import pandas as pd
 from utils.db_connection import get_database
 import streamlit as st
@@ -38,6 +37,5 @@ def monthly_sales_trends():
     ]
     result = list(db.orders.aggregate(pipeline))
     df = pd.DataFrame(result)
-    # Create a datetime column for plotting
     df['date'] = pd.to_datetime(df[['year', 'month']].assign(DAY=1))
     return df

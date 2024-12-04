@@ -1,4 +1,3 @@
-# queries/query4.py
 import pandas as pd
 from utils.db_connection import get_database
 import streamlit as st

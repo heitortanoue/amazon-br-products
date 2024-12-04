@@ -1,4 +1,3 @@
-# queries/query10.py
 import pandas as pd
 from utils.db_connection import get_database
 
@@ -12,15 +11,12 @@ def orders_with_delayed_delivery():
     """
     db = get_database()
     pipeline = [
-        # Match orders where delivery dates exist
         {
             "$match": {
                 "order_delivered_customer_date": { "$ne": None },
                 "order_estimated_delivery_date": { "$ne": None }
             }
         },
-
-        # Add a field to calculate if delivery was delayed
         {
             "$addFields": {
                 "is_delayed": {
@@ -31,15 +27,11 @@ def orders_with_delayed_delivery():
                 }
             }
         },
-
-        # Filter only delayed deliveries
         {
             "$match": {
                 "is_delayed": True
             }
         },
-
-        # Lookup to join with customers collection to get customer_state
         {
             "$lookup": {
                 "from": "customers",
@@ -48,13 +40,9 @@ def orders_with_delayed_delivery():
                 "as": "customer_info"
             }
         },
-
-        # Unwind the customer_info array
         {
             "$unwind": "$customer_info"
         },
-
-        # Project desired fields including customer_state
         {
             "$project": {
                 "_id": 0,
@@ -68,8 +56,6 @@ def orders_with_delayed_delivery():
                 }
             }
         },
-
-        # Sort by delay_in_days descending
         {
             "$sort": { "delay_in_days": -1 }
         }

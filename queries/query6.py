@@ -1,4 +1,3 @@
-# queries/query6.py
 import pandas as pd
 from utils.db_connection import get_database
 import streamlit as st
@@ -14,10 +13,7 @@ def most_common_payment_types():
     """
     db = get_database()
     pipeline = [
-        # Unwind the payment array to access individual payment records
         { "$unwind": "$payment" },
-
-        # Group by payment type to calculate count and total payment value
         {
             "$group": {
                 "_id": "$payment.payment_type",
@@ -25,8 +21,6 @@ def most_common_payment_types():
                 "total_amount": { "$sum": "$payment.payment_value" }
             }
         },
-
-        # Sort by count descending
         { "$sort": { "count": -1 } }
     ]
     result = list(db.orders.aggregate(pipeline))

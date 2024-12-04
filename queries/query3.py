@@ -1,4 +1,3 @@
-# queries/query3.py
 import pandas as pd
 from utils.db_connection import get_database
 import streamlit as st
@@ -7,9 +6,6 @@ import streamlit as st
 def most_popular_products():
     """
     Identifies the most frequently purchased products.
-
-    Args:
-        limit (int): The number of top products to retrieve. Defaults to 10.
 
     Returns:
         pd.DataFrame: DataFrame containing product details and purchase counts.
