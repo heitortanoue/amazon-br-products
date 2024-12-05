@@ -14,6 +14,12 @@ def top_cities_by_customers():
     pipeline = [
         {
             "$group": {
+                "_id": "$customer_unique_id",
+                "customer_city": { "$first": "$customer_city" }
+            }
+        },
+        {
+            "$group": {
                 "_id": "$customer_city",
                 "customer_count": { "$sum": 1 }
             }
