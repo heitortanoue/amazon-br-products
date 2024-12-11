@@ -4,7 +4,7 @@
 
 ## Overview
 
-The **Olist E-commerce Data Analysis Dashboard** is a Streamlit application designed to analyze and visualize various aspects of the Olist e-commerce dataset. This dataset encompasses information about 100k orders made between 2016 and 2018 across multiple marketplaces in Brazil. The dashboard provides insights into product performance, payment methods, delivery efficiency, sales trends, and more, enabling data-driven decision-making for e-commerce businesses.
+The **Olist E-commerce Data Analysis Dashboard** is a Streamlit application designed to analyze and visualize various aspects of the Olist e-commerce dataset. This dataset contains information about 100k orders made between 2016 and 2018 across multiple marketplaces in Brazil. The dashboard provides insights into product performance, payment methods, delivery efficiency, sales trends, and more, enabling data-driven decision-making for e-commerce businesses.
 
 ## Data source
 
@@ -12,30 +12,14 @@ The data was taken from [this source](https://www.kaggle.com/datasets/olistbr/br
 
 To leverage MongoDB's strengths in handling non-relational data, the dataset has been transformed into a **document-oriented model**. This involves organizing the data into collections and documents, employing embedded documents for closely related information like order items and payments within the orders collection, and using references where appropriate to maintain data integrity. This modeling approach enhances query efficiency, scalability, and flexibility.
 
-
-
-## Features
-
-- **Top Products Analysis:**
-  - **Sales Volume:** Identify the top 10 products by units sold.
-  - **Revenue:** Determine the top 10 products generating the highest revenue.
-  - **Sales Distribution:** Analyze sales distribution across different product categories.
-
-- **Payment Methods Insights:**
-  - **Most Common Payments:** Discover the most frequently used payment types.
-
-- **Delivery Performance:**
-  - **Average Delivery Time:** Evaluate delivery efficiency by state.
-  - **Freight Value Analysis:** Assess average freight costs across states.
-
-- **Order Status Overview:**
-  - **Status Distribution:** Understand the distribution of various order statuses.
-
-- **Sales Trends:**
-  - **Monthly Sales Trends:** Visualize sales performance over time.
-
-- **Geographical Insights:**
-  - **Order Distribution:** Map the geographical distribution of orders.
-
-- **Product Returns Analysis:**
-  - **Return Rates:** Identify products with the highest return rates.
+## Queries
+- Monthly sales trends;
+- Average order value by customer state;
+- Most popular products;
+- Average delivery time per seller;
+- Top rated products;
+- Most common payment types;
+- Sales by product category;
+- Cities with highest number of customers;
+- Average freight value by state;
+- Orders with delayed delivery;
